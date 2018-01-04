@@ -48,7 +48,7 @@ for i in `seq 1 $NLOOPS`; do
 	# collect stats from the replicas too
 	for p in `seq 1 $NREPLICAS`; do
 		port=$((6000+p))
-		psql test -c "select * from pg_subscription" >> $TESTDIR/stats.log 2>&1
+		psql test -p $port -c "select * from pg_subscription" >> $TESTDIR/stats.log 2>&1
 	done
 
 	# collect additional bits of data (compress core files, if any)
