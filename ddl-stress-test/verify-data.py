@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/bin/python2.7
 
 import psycopg2
 import psycopg2.extras

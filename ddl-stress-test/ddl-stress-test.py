@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/bin/python2.7
 
 import psycopg2
 import psycopg2.extras
@@ -50,6 +50,8 @@ def run_workload(wid, result_queue, ntables):
 
 	tables = ['test_table_%d' % (i+1,) for i in range(ntables)]
 	tables_cols = {n : [] for n in tables}
+
+	time_start = time.time()
 
 	for cid in range(1,100):
 
@@ -120,6 +122,14 @@ def run_workload(wid, result_queue, ntables):
 				results.put(r)
 
 		tables_cols[table_name] = cols
+
+		time_end = time.time()
+
+		time_elapsed = (time_end - time_start)
+		time_estimate = (99 * time_elapsed) / cid
+
+		print ("worker %d command %d of %d, elapsed %f total %f" % (wid, cid, 99, time_elapsed, time_estimate))
+		sys.stdout.flush()
 
 
 if __name__ == '__main__':
